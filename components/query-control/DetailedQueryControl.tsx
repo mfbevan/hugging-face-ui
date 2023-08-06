@@ -13,15 +13,29 @@ import {
   Wrap,
   WrapItem,
   Divider,
+  FormControl,
+  Switch,
+  Input,
+  Spinner,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { FcServices } from "react-icons/fc";
+import { FaTrash } from "react-icons/fa";
 
 export interface DetailedQueryControlProps {}
 
 export const DetailedQueryControl = ({}: DetailedQueryControlProps) => {
   const [showAdvanced, setShowAdvanced] = useBoolean();
+  const {
+    model,
+    setModel,
+    endpoint,
+    setEndpoint,
+    includeHistory,
+    setIncludeHistory,
+    clearHistory,
+  } = useQueryControlStore();
 
-  const { model, setModel, endpoint, setEndpoint } = useQueryControlStore();
   const { isLoading } = useQueryControl();
 
   return (
@@ -72,15 +86,41 @@ export const DetailedQueryControl = ({}: DetailedQueryControlProps) => {
         <Collapse in={showAdvanced}>
           <Divider mt="10px" />
           <AdvancedOptionsContainer>
+            {/* Response History */}
             <WrapItem>
               <WrappedItem>
-                <StyledLabel>Some Advanced Setting</StyledLabel>
+                <StyledLabel>Response History</StyledLabel>
+                <Flex>
+                  <FormControl display="flex" alignItems="center">
+                    <FormLabel htmlFor="include-history" mb="0" ml="10px">
+                      Include Response History
+                    </FormLabel>
+                    <Switch
+                      isChecked={includeHistory}
+                      onChange={(e) => setIncludeHistory(e.target.checked)}
+                      colorScheme="yellow"
+                      id="include-history"
+                    />
+                  </FormControl>
+                  <Button
+                    colorScheme="red"
+                    onClick={clearHistory}
+                    rightIcon={<FaTrash />}
+                    px="30px"
+                  >
+                    Clear History
+                  </Button>
+                </Flex>
               </WrappedItem>
             </WrapItem>
+          </AdvancedOptionsContainer>
 
+          <AdvancedOptionsContainer>
+            {/* Custom API Key */}
             <WrapItem>
               <WrappedItem>
-                <StyledLabel>Another Advanced Setting</StyledLabel>
+                <StyledLabel>API Key</StyledLabel>
+                <StyledInput placeholder="Hugging Face API Key" />
               </WrappedItem>
             </WrapItem>
           </AdvancedOptionsContainer>
@@ -94,7 +134,7 @@ export const DetailedQueryControl = ({}: DetailedQueryControlProps) => {
             href="https://huggingface.co/docs/huggingface.js/index"
             target="_blank"
           >
-            Huggingface.js
+            Huggingface.js 🤗
           </Link>
         </Text>
 
@@ -104,6 +144,8 @@ export const DetailedQueryControl = ({}: DetailedQueryControlProps) => {
           variant="ghost"
           alignSelf="flex-end"
           onClick={setShowAdvanced.toggle}
+          rightIcon={<FcServices />}
+          rounded="lg"
         >
           {showAdvanced ? "Hide" : "Show"} Advanced
         </Button>
@@ -120,7 +162,7 @@ const DetailedOptionsContainer = chakra(Flex, {
 
 const GeneralOptionsContainer = chakra(Wrap, {
   baseStyle: {
-    gap: "10px",
+    gap: "20px",
   },
 });
 
@@ -133,6 +175,7 @@ const AdvancedOptionsContainer = chakra(Wrap, {
 const StyledSelect = chakra(Select, {
   baseStyle: {
     rounded: "xl",
+    w: "xs",
   },
 });
 
@@ -145,9 +188,15 @@ const StyledLabel = chakra(FormLabel, {
   },
 });
 
+const StyledInput = chakra(Input, {
+  baseStyle: {
+    rounded: "xl",
+    w: "xs",
+  },
+});
+
 const WrappedItem = chakra(Flex, {
   baseStyle: {
     flexDirection: "column",
-    maxW: "300px",
   },
 });

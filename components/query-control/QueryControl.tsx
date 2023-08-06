@@ -1,25 +1,19 @@
 import { useQueryControl, useQueryControlStore } from "@/context";
-import { toTitleCase } from "@/utils";
-import { InferenceEndpoint, inferenceEndpoints, languageModels } from "@/types";
 import {
   chakra,
   LightMode,
   IconButton,
   Textarea,
   Flex,
-  Select,
-  Text,
   Box,
 } from "@chakra-ui/react";
 import { IoSend } from "react-icons/io5";
-import Link from "next/link";
 import { DetailedQueryControl } from "./DetailedQueryControl";
 
 export interface QueryControlProps {}
 
 export const QueryControl = ({}: QueryControlProps) => {
-  const { query, setQuery, model, setModel, endpoint, setEndpoint } =
-    useQueryControlStore();
+  const { query, setQuery } = useQueryControlStore();
   const { onSubmit, handleKeyInput, isDisabled, isLoading, inputFieldRef } =
     useQueryControl();
 
@@ -93,5 +87,6 @@ const SubmitButton = chakra(IconButton, {
     position: "absolute",
     right: "10px",
     bottom: "10px",
+    zIndex: 10,
   },
 });

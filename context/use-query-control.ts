@@ -6,8 +6,15 @@ import { toast } from "react-toastify";
 
 export const useQueryControl = () => {
   const inputFieldRef = useRef<HTMLTextAreaElement>(null);
-  const { query, setQuery, model, endpoint, history, addToHistory } =
-    useQueryControlStore();
+  const {
+    query,
+    setQuery,
+    model,
+    endpoint,
+    history,
+    addToHistory,
+    includeHistory,
+  } = useQueryControlStore();
 
   const conversationalMutation = trpc.huggingFace.conversational.useMutation();
   const tokenClassificationMutation =
@@ -33,7 +40,7 @@ export const useQueryControl = () => {
       const response = await mutationFn.mutateAsync({
         request: query,
         model,
-        history,
+        history: includeHistory ? history : undefined,
       });
 
       const responseTime = new Date().getTime() - startTime;

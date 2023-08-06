@@ -11,7 +11,7 @@ export const semanticTokens = {
     },
     offsetBg: {
       default: "white",
-      _dark: "gray.700",
+      _dark: "gray.800",
     },
   },
 };
