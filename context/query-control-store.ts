@@ -2,8 +2,8 @@ import { InferenceEndpoint, LanguageModel } from "@/types";
 import { QueryHistoryItem } from "@/types/query-history";
 import { create } from "zustand";
 
-const DEFAULT_MODEL = "gpt2";
-const DEFAULT_ENDPOINT = "conversational";
+const DEFAULT_MODEL: LanguageModel = "microsoft/DialoGPT-large";
+const DEFAULT_ENDPOINT: InferenceEndpoint = "conversational";
 
 export interface QueryControlStore {
   query: string;

@@ -1,32 +1,28 @@
-import { KeyboardEvent } from "react";
+import { KeyboardEvent, useRef } from "react";
 import { useQueryControlStore } from ".";
-
-export interface UseQueryControlReturn {
-  onSubmit: () => void;
-  handleKeyInput: (event: { key: string }) => void;
-}
+import { trpc } from "@/utils";
 
 export const useQueryControl = () => {
+  const inputFieldRef = useRef<HTMLTextAreaElement>(null);
   const { query, setQuery, model, endpoint, addToHistory } =
     useQueryControlStore();
+
+  const mutation = trpc.huggingFace.conversational.useMutation({});
 
   const onSubmit = async () => {
     if (!query || !model || !endpoint) return;
 
     const startTime = new Date().getTime();
 
-    // TODO execute HF Query
-    const response = (
-      await fetch("https://jsonplaceholder.typicode.com/posts/1").then((res) =>
-        res.json()
-      )
-    ).body;
+    // TODO switch based on the endpoint
+    const mutationResponse = await mutation.mutateAsync({
+      request: query,
+      model,
+    });
 
-    console.log(response);
+    const response = mutationResponse.generated_text;
 
-    const endTime = new Date().getTime();
-
-    const responseTime = endTime - startTime;
+    const responseTime = new Date().getTime() - startTime;
 
     addToHistory({
       timestamp: new Date(),
@@ -38,6 +34,7 @@ export const useQueryControl = () => {
     });
 
     setQuery("");
+    inputFieldRef.current?.focus();
   };
 
   const handleKeyInput = (event: KeyboardEvent) => {
@@ -53,5 +50,7 @@ export const useQueryControl = () => {
     onSubmit,
     handleKeyInput,
     isDisabled,
+    mutation,
+    inputFieldRef,
   };
 };

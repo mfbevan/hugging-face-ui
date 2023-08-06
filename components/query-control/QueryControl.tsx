@@ -18,7 +18,10 @@ export interface QueryControlProps {}
 export const QueryControl = ({}: QueryControlProps) => {
   const { query, setQuery, model, setModel, endpoint, setEndpoint } =
     useQueryControlStore();
-  const { onSubmit, handleKeyInput, isDisabled } = useQueryControl();
+  const { onSubmit, handleKeyInput, isDisabled, mutation, inputFieldRef } =
+    useQueryControl();
+
+  const { isLoading } = mutation;
 
   return (
     <QueryControlContainer>
@@ -27,12 +30,15 @@ export const QueryControl = ({}: QueryControlProps) => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyInput}
+        isDisabled={isLoading}
+        ref={inputFieldRef}
       />
       <OptionsContainer>
         <StyledSelect
           placeholder="Select Model"
           value={model}
           onChange={(e) => setModel(e.target.value)}
+          isDisabled={isLoading}
         >
           {languageModels.map((model) => (
             <option key={model} value={model}>
@@ -44,6 +50,7 @@ export const QueryControl = ({}: QueryControlProps) => {
           placeholder="Select Endpoint"
           value={endpoint}
           onChange={(e) => setEndpoint(e.target.value)}
+          isDisabled={isLoading}
         >
           {inferenceEndpoints.map((endpoint) => (
             <option key={endpoint} value={endpoint}>
@@ -58,6 +65,7 @@ export const QueryControl = ({}: QueryControlProps) => {
             colorScheme="yellow"
             onClick={onSubmit}
             isDisabled={isDisabled}
+            isLoading={mutation.isLoading}
           />
         </LightMode>
       </OptionsContainer>
