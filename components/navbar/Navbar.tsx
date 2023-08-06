@@ -10,7 +10,7 @@ export const Navbar = ({}: NavbarProps) => {
       <HuggingFaceIcon />
 
       <Link href="/">
-        <NavigationItem fontWeight="bold">Hugging Face UI</NavigationItem>
+        <NavigationItem fontWeight="bold">Huggingface.js UI</NavigationItem>
       </Link>
 
       <Link
