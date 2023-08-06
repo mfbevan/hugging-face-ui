@@ -1,3 +1,4 @@
+import { PageContainer } from "@/components";
 import Head from "next/head";
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
       <Head>
         <title>Hugging Face UI</title>
       </Head>
+      <PageContainer>This is some page content</PageContainer>
     </>
   );
 }

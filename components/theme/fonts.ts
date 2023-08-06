@@ -1,11 +1,10 @@
-import { Inter } from "next/font/google";
+import { Source_Sans_3 } from "next/font/google";
 
-export const inter = Inter({
+export const sourceSans = Source_Sans_3({
   subsets: ["latin"],
-  weight: ["400", "600"],
 });
 
 export const fonts = {
-  heading: inter.style.fontFamily,
-  body: inter.style.fontFamily,
+  heading: sourceSans.style.fontFamily,
+  body: sourceSans.style.fontFamily,
 };
