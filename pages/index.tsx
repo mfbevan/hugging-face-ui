@@ -1,5 +1,4 @@
-import { PageContainer } from "@/components";
-import { QueryControl } from "@/components/query-control/QueryControl";
+import { PageContainer, QueryControl } from "@/components";
 import Head from "next/head";
 
 export default function Home() {

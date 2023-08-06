@@ -4,3 +4,4 @@ export * from "./navbar";
 export * from "./images";
 export * from "./containers";
 export * from "./page-error";
+export * from "./query-control";
