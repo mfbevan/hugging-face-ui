@@ -10,6 +10,7 @@ import {
   TagLabel,
   TagLeftIcon,
   Text,
+  Tooltip,
   chakra,
 } from "@chakra-ui/react";
 import { BsClockHistory } from "react-icons/bs";
@@ -42,12 +43,18 @@ export const HistoryItem = ({
   return (
     <HistoryItemContainer>
       <TagContainer>
-        <Tag>{model}</Tag>
-        <Tag>{toTitleCase(endpoint)}</Tag>
-        <Tag>
-          <TagLeftIcon as={BsClockHistory} />
-          <TagLabel>{responseTime} ms</TagLabel>
-        </Tag>
+        <Tooltip label="Model">
+          <Tag>{model}</Tag>
+        </Tooltip>
+        <Tooltip label="Endpoint">
+          <Tag>{toTitleCase(endpoint)}</Tag>
+        </Tooltip>
+        <Tooltip label="Response Time">
+          <Tag>
+            <TagLeftIcon as={BsClockHistory} />
+            <TagLabel>{responseTime} ms</TagLabel>
+          </Tag>
+        </Tooltip>
         <Spacer />
         <HistoryTimestamp>
           {timestamp.toDateString()}
