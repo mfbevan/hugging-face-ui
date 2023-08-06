@@ -7,5 +7,7 @@ export const PageContainer = chakra(Flex, {
     minH: "100vh",
     mx: "auto",
     pt: "60px",
+    px: "10px",
+    pb: "10px",
   },
 });

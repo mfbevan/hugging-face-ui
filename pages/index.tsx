@@ -1,4 +1,5 @@
 import { PageContainer } from "@/components";
+import { QueryControl } from "@/components/query-control/QueryControl";
 import Head from "next/head";
 
 export default function Home() {
@@ -7,7 +8,9 @@ export default function Home() {
       <Head>
         <title>Hugging Face UI</title>
       </Head>
-      <PageContainer>This is some page content</PageContainer>
+      <PageContainer>
+        <QueryControl />
+      </PageContainer>
     </>
   );
 }

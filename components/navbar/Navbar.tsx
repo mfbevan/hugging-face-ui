@@ -6,7 +6,7 @@ export interface NavbarProps {}
 export const Navbar = ({}: NavbarProps) => {
   return (
     <NavbarContainer>
-      <HuggingFaceIcon mr="10px" />
+      <HuggingFaceIcon />
       <NavigationItem>Hugging Face UI</NavigationItem>
       <Spacer />
       <GitHubIconButton href="https://github.com/mfbevan/hugging-face-ui" />

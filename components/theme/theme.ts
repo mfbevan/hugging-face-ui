@@ -2,7 +2,7 @@ import { extendTheme, ThemeConfig } from "@chakra-ui/react";
 import { colors } from "./colors";
 import { fonts } from "./fonts";
 import { semanticTokens } from "./semantic-tokens";
-import { Tooltip } from "./variants";
+import { Tooltip, Button, Textarea, Select } from "./variants";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -16,5 +16,8 @@ export const theme = extendTheme({
   semanticTokens,
   components: {
     Tooltip,
+    Button,
+    Textarea,
+    Select,
   },
 });
