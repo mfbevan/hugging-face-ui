@@ -16,6 +16,13 @@ export const useQueryControl = () => {
     const startTime = new Date().getTime();
 
     // TODO execute HF Query
+    const response = (
+      await fetch("https://jsonplaceholder.typicode.com/posts/1").then((res) =>
+        res.json()
+      )
+    ).body;
+
+    console.log(response);
 
     const endTime = new Date().getTime();
 
@@ -23,7 +30,7 @@ export const useQueryControl = () => {
 
     addToHistory({
       timestamp: new Date(),
-      response: "This is a response.",
+      response,
       query,
       model,
       endpoint,

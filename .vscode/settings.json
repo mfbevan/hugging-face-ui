@@ -1,0 +1,11 @@
+{
+  "cSpell.words": ["trpc"],
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#FFCC00",
+    "activityBar.foreground": "#000000",
+    "titleBar.activeBackground": "#fe9d01",
+    "titleBar.activeForeground": "#000000",
+    "statusBar.background": "#e1b401",
+    "statusBar.foreground": "#000000"
+  }
+}

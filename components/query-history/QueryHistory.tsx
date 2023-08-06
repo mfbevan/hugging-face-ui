@@ -11,6 +11,7 @@ import {
   TagLeftIcon,
   Text,
   Tooltip,
+  Wrap,
   chakra,
 } from "@chakra-ui/react";
 import { BsClockHistory } from "react-icons/bs";
@@ -84,7 +85,7 @@ const HistoryItemContainer = chakra(Flex, {
   },
 });
 
-const TagContainer = chakra(Flex, {
+const TagContainer = chakra(Wrap, {
   baseStyle: {
     gap: "10px",
   },

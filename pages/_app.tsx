@@ -3,12 +3,15 @@ import type { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Navbar } from "@/components/navbar";
 import { theme } from "@/components";
+import { trpc } from "@/utils/trpc";
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <ChakraProvider theme={theme}>
       <Navbar />
       <Component {...pageProps} />
     </ChakraProvider>
   );
-}
+};
+
+export default trpc.withTRPC(App);

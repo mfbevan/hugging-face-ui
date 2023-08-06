@@ -94,14 +94,14 @@ const QueryTextarea = chakra(Textarea, {
     w: "full",
     border: "1px solid",
     borderColor: "border",
-    rounded: "xl",
+    rounded: "2xl",
     maxH: "200px",
   },
 });
 
 const SubmitButton = chakra(IconButton, {
   baseStyle: {
-    rounded: "xl",
+    rounded: "2xl",
     boxShadow: "base",
     size: "md",
     w: "fit-content",
@@ -119,6 +119,6 @@ const OptionsContainer = chakra(Flex, {
 
 const StyledSelect = chakra(Select, {
   baseStyle: {
-    rounded: "lg",
+    rounded: "2xl",
   },
 });
