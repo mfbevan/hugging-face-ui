@@ -6,13 +6,13 @@ The site is available at [hugging-face-ui.mfbevan.com](https://hugging-face-ui.m
 
 ## Technologies Used
 
-* Next.js
-* React
-* Typescript
-* Chakra-UI
-* Tanstack React Query
-*  tRPC 
-* 🤗 Huggingface.js Inference SDK
+- 🔄 Next.js
+- ⚛️ React
+- 🧰 Typescript
+- 🎨 Chakra-UI
+- 🚀 Tanstack React Query
+- 🕸️ tRPC
+- 🤗 Huggingface.js Inference SDK
 
 ## Getting Started
 

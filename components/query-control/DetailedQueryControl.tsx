@@ -16,7 +16,6 @@ import {
   FormControl,
   Switch,
   Input,
-  Spinner,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { FcServices } from "react-icons/fc";
