@@ -1,40 +1,56 @@
-import { KeyboardEvent, useRef } from "react";
-import { useQueryControlStore } from ".";
+import { KeyboardEvent, useEffect, useMemo, useRef } from "react";
+import { DEFAULT_ENDPOINT, useQueryControlStore } from ".";
 import { trpc } from "@/utils";
+import { InferenceEndpoint } from "@/types";
+import { toast } from "react-toastify";
 
 export const useQueryControl = () => {
   const inputFieldRef = useRef<HTMLTextAreaElement>(null);
-  const { query, setQuery, model, endpoint, addToHistory } =
+  const { query, setQuery, model, endpoint, history, addToHistory } =
     useQueryControlStore();
 
-  const mutation = trpc.huggingFace.conversational.useMutation({});
+  const conversationalMutation = trpc.huggingFace.conversational.useMutation();
+  const tokenClassificationMutation =
+    trpc.huggingFace.tokenClassification.useMutation();
+
+  const mutationFn = useMemo(() => {
+    switch (endpoint) {
+      case "conversational":
+        return conversationalMutation;
+      case "tokenClassification":
+        return tokenClassificationMutation;
+      default:
+        return conversationalMutation;
+    }
+  }, [conversationalMutation, endpoint, tokenClassificationMutation]);
 
   const onSubmit = async () => {
-    if (!query || !model || !endpoint) return;
+    try {
+      if (!query || !model || !endpoint) return;
 
-    const startTime = new Date().getTime();
+      const startTime = new Date().getTime();
 
-    // TODO switch based on the endpoint
-    const mutationResponse = await mutation.mutateAsync({
-      request: query,
-      model,
-    });
+      const response = await mutationFn.mutateAsync({
+        request: query,
+        model,
+        history,
+      });
 
-    const response = mutationResponse.generated_text;
+      const responseTime = new Date().getTime() - startTime;
 
-    const responseTime = new Date().getTime() - startTime;
+      addToHistory({
+        timestamp: new Date(),
+        response,
+        query,
+        model,
+        endpoint,
+        responseTime,
+      });
 
-    addToHistory({
-      timestamp: new Date(),
-      response,
-      query,
-      model,
-      endpoint,
-      responseTime,
-    });
-
-    setQuery("");
-    inputFieldRef.current?.focus();
+      setQuery("");
+    } catch (err: any) {
+      toast.error(err.message);
+    }
   };
 
   const handleKeyInput = (event: KeyboardEvent) => {
@@ -44,13 +60,21 @@ export const useQueryControl = () => {
     }
   };
 
-  const isDisabled = query.length === 0 || !model || !endpoint;
+  const isDisabled = !query || query.length === 0 || !model || !endpoint;
+
+  const isLoading = mutationFn && mutationFn.isLoading;
+
+  useEffect(() => {
+    if (inputFieldRef.current && !isLoading) {
+      inputFieldRef.current.focus();
+    }
+  }, [inputFieldRef, isLoading]);
 
   return {
     onSubmit,
     handleKeyInput,
     isDisabled,
-    mutation,
+    isLoading,
     inputFieldRef,
   };
 };

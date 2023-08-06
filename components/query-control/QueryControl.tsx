@@ -1,6 +1,6 @@
 import { useQueryControl, useQueryControlStore } from "@/context";
 import { toTitleCase } from "@/utils";
-import { inferenceEndpoints, languageModels } from "@/types";
+import { InferenceEndpoint, inferenceEndpoints, languageModels } from "@/types";
 import {
   chakra,
   LightMode,
@@ -18,20 +18,18 @@ export interface QueryControlProps {}
 export const QueryControl = ({}: QueryControlProps) => {
   const { query, setQuery, model, setModel, endpoint, setEndpoint } =
     useQueryControlStore();
-  const { onSubmit, handleKeyInput, isDisabled, mutation, inputFieldRef } =
+  const { onSubmit, handleKeyInput, isDisabled, isLoading, inputFieldRef } =
     useQueryControl();
-
-  const { isLoading } = mutation;
 
   return (
     <QueryControlContainer>
       <QueryTextarea
+        ref={inputFieldRef}
         placeholder="Enter your query here..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyInput}
         isDisabled={isLoading}
-        ref={inputFieldRef}
       />
       <OptionsContainer>
         <StyledSelect
@@ -49,7 +47,7 @@ export const QueryControl = ({}: QueryControlProps) => {
         <StyledSelect
           placeholder="Select Endpoint"
           value={endpoint}
-          onChange={(e) => setEndpoint(e.target.value)}
+          onChange={(e) => setEndpoint(e.target.value as InferenceEndpoint)}
           isDisabled={isLoading}
         >
           {inferenceEndpoints.map((endpoint) => (
@@ -65,7 +63,7 @@ export const QueryControl = ({}: QueryControlProps) => {
             colorScheme="yellow"
             onClick={onSubmit}
             isDisabled={isDisabled}
-            isLoading={mutation.isLoading}
+            isLoading={isLoading}
           />
         </LightMode>
       </OptionsContainer>

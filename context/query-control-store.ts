@@ -2,16 +2,16 @@ import { InferenceEndpoint, LanguageModel } from "@/types";
 import { QueryHistoryItem } from "@/types/query-history";
 import { create } from "zustand";
 
-const DEFAULT_MODEL: LanguageModel = "microsoft/DialoGPT-large";
-const DEFAULT_ENDPOINT: InferenceEndpoint = "conversational";
+export const DEFAULT_MODEL: LanguageModel = "microsoft/DialoGPT-large";
+export const DEFAULT_ENDPOINT: InferenceEndpoint = "conversational";
 
 export interface QueryControlStore {
   query: string;
   setQuery: (query: string) => void;
   model: LanguageModel | string;
   setModel: (model: LanguageModel | string) => void;
-  endpoint: InferenceEndpoint | string;
-  setEndpoint: (endpoint: InferenceEndpoint | string) => void;
+  endpoint: InferenceEndpoint;
+  setEndpoint: (endpoint: InferenceEndpoint) => void;
   history: QueryHistoryItem[];
   addToHistory: (item: QueryHistoryItem) => void;
   clearHistory: () => void;
