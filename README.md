@@ -1,4 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🤗 Huggingface.js UI
+
+A Next.js app to provide a simple to use interface for interacting with the Huggingface.js Inference API.
+
+The site is available at [hugging-face-ui.mfbevan.com](https://hugging-face-ui.mfbevan.com/) and [hugging-face-ui.vercel.app](https://hugging-face-ui.vercel.app/), or feel free to fork this repository and test it out on your own.
+
+## Technologies Used
+
+* Next.js
+* React
+* Typescript
+* Chakra-UI
+* Tanstack React Query
+*  tRPC 
+* 🤗 Huggingface.js Inference SDK
 
 ## Getting Started
 
