@@ -1,5 +1,5 @@
 import { Flex, Spacer, Text, chakra } from "@chakra-ui/react";
-import { DarkModeButton, HuggingFaceIcon } from "..";
+import { DarkModeButton, GitHubIconButton, HuggingFaceIcon } from "..";
 
 export interface NavbarProps {}
 
@@ -9,6 +9,7 @@ export const Navbar = ({}: NavbarProps) => {
       <HuggingFaceIcon mr="10px" />
       <NavigationItem>Hugging Face UI</NavigationItem>
       <Spacer />
+      <GitHubIconButton href="https://github.com/mfbevan/hugging-face-ui" />
       <DarkModeButton />
     </NavbarContainer>
   );
@@ -28,6 +29,7 @@ const NavbarContainer = chakra(Flex, {
     w: "full",
     zIndex: "999",
     bg: "pageBg",
+    gap: "10px",
   },
 });
 

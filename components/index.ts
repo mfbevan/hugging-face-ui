@@ -1,5 +1,5 @@
 export * from "./theme";
-export * from "./dark-mode";
+export * from "./buttons";
 export * from "./navbar";
 export * from "./images";
 export * from "./containers";
