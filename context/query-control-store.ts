@@ -15,6 +15,8 @@ export interface QueryControlStore {
   history: QueryHistoryItem[];
   addToHistory: (item: QueryHistoryItem) => void;
   clearHistory: () => void;
+  includeHistory: boolean;
+  setIncludeHistory: (includeHistory: boolean) => void;
 }
 
 export const useQueryControlStore = create<QueryControlStore>((set) => ({
@@ -28,4 +30,6 @@ export const useQueryControlStore = create<QueryControlStore>((set) => ({
   addToHistory: (item) =>
     set((state) => ({ history: [...state.history, item] })),
   clearHistory: () => set({ history: [] }),
+  includeHistory: false,
+  setIncludeHistory: (includeHistory) => set({ includeHistory }),
 }));

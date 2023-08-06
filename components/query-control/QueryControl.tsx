@@ -9,9 +9,11 @@ import {
   Flex,
   Select,
   Text,
+  Box,
 } from "@chakra-ui/react";
 import { IoSend } from "react-icons/io5";
 import Link from "next/link";
+import { DetailedQueryControl } from "./DetailedQueryControl";
 
 export interface QueryControlProps {}
 
@@ -23,39 +25,16 @@ export const QueryControl = ({}: QueryControlProps) => {
 
   return (
     <QueryControlContainer>
-      <QueryTextarea
-        ref={inputFieldRef}
-        placeholder="Enter your query here..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleKeyInput}
-        isDisabled={isLoading}
-      />
-      <OptionsContainer>
-        <StyledSelect
-          placeholder="Select Model"
-          value={model}
-          onChange={(e) => setModel(e.target.value)}
+      <TextAreaContainer>
+        <QueryTextarea
+          ref={inputFieldRef}
+          placeholder="Enter your query here..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleKeyInput}
           isDisabled={isLoading}
-        >
-          {languageModels.map((model) => (
-            <option key={model} value={model}>
-              {model}
-            </option>
-          ))}
-        </StyledSelect>
-        <StyledSelect
-          placeholder="Select Endpoint"
-          value={endpoint}
-          onChange={(e) => setEndpoint(e.target.value as InferenceEndpoint)}
-          isDisabled={isLoading}
-        >
-          {inferenceEndpoints.map((endpoint) => (
-            <option key={endpoint} value={endpoint}>
-              {toTitleCase(endpoint)}
-            </option>
-          ))}
-        </StyledSelect>
+          resize="none"
+        />
         <LightMode>
           <SubmitButton
             icon={<IoSend />}
@@ -66,16 +45,9 @@ export const QueryControl = ({}: QueryControlProps) => {
             isLoading={isLoading}
           />
         </LightMode>
-      </OptionsContainer>
-      <Text fontSize="sm" opacity="0.7" pl="10px">
-        Powered by{" "}
-        <Link
-          href="https://huggingface.co/docs/huggingface.js/index"
-          target="_blank"
-        >
-          Huggingface.js
-        </Link>
-      </Text>
+      </TextAreaContainer>
+
+      <DetailedQueryControl />
     </QueryControlContainer>
   );
 };
@@ -95,13 +67,20 @@ const QueryControlContainer = chakra(Flex, {
   },
 });
 
+const TextAreaContainer = chakra(Box, {
+  baseStyle: {
+    position: "relative",
+  },
+});
+
 const QueryTextarea = chakra(Textarea, {
   baseStyle: {
     w: "full",
     border: "1px solid",
     borderColor: "border",
     rounded: "2xl",
-    maxH: "200px",
+    pr: "60px",
+    h: "auto",
   },
 });
 
@@ -111,20 +90,8 @@ const SubmitButton = chakra(IconButton, {
     boxShadow: "base",
     size: "md",
     w: "fit-content",
-  },
-});
-
-const OptionsContainer = chakra(Flex, {
-  baseStyle: {
-    flexDirection: "row",
-    gap: "10px",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-});
-
-const StyledSelect = chakra(Select, {
-  baseStyle: {
-    rounded: "2xl",
+    position: "absolute",
+    right: "10px",
+    bottom: "10px",
   },
 });
