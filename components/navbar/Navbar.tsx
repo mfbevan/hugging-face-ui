@@ -13,12 +13,12 @@ export const Navbar = ({}: NavbarProps) => {
         <NavigationItem fontWeight="bold">Huggingface.js UI</NavigationItem>
       </Link>
 
-      <Link
+      {/* <Link
         href="https://huggingface.co/docs/huggingface.js/index"
         target="_blank"
       >
         <NavigationItem fontSize="lg">SDK Docs</NavigationItem>
-      </Link>
+      </Link> */}
 
       <Spacer />
       <GitHubIconButton href="https://github.com/mfbevan/hugging-face-ui" />

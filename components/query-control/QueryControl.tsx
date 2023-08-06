@@ -1,4 +1,4 @@
-import { useQueryControlStore } from "@/context";
+import { useQueryControl, useQueryControlStore } from "@/context";
 import { toTitleCase } from "@/utils";
 import { inferenceEndpoints, languageModels } from "@/types";
 import {
@@ -8,13 +8,17 @@ import {
   Textarea,
   Flex,
   Select,
+  Text,
 } from "@chakra-ui/react";
 import { IoSend } from "react-icons/io5";
+import Link from "next/link";
 
 export interface QueryControlProps {}
 
 export const QueryControl = ({}: QueryControlProps) => {
-  const { query, setQuery } = useQueryControlStore();
+  const { query, setQuery, model, setModel, endpoint, setEndpoint } =
+    useQueryControlStore();
+  const { onSubmit, handleKeyInput, isDisabled } = useQueryControl();
 
   return (
     <QueryControlContainer>
@@ -22,16 +26,25 @@ export const QueryControl = ({}: QueryControlProps) => {
         placeholder="Enter your query here..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleKeyInput}
       />
       <OptionsContainer>
-        <StyledSelect placeholder="Select Model">
+        <StyledSelect
+          placeholder="Select Model"
+          value={model}
+          onChange={(e) => setModel(e.target.value)}
+        >
           {languageModels.map((model) => (
             <option key={model} value={model}>
               {model}
             </option>
           ))}
         </StyledSelect>
-        <StyledSelect placeholder="Select Endpoint">
+        <StyledSelect
+          placeholder="Select Endpoint"
+          value={endpoint}
+          onChange={(e) => setEndpoint(e.target.value)}
+        >
           {inferenceEndpoints.map((endpoint) => (
             <option key={endpoint} value={endpoint}>
               {toTitleCase(endpoint)}
@@ -43,21 +56,23 @@ export const QueryControl = ({}: QueryControlProps) => {
             icon={<IoSend />}
             aria-label="Send Query"
             colorScheme="yellow"
+            onClick={onSubmit}
+            isDisabled={isDisabled}
           />
         </LightMode>
       </OptionsContainer>
+      <Text fontSize="sm" opacity="0.7" pl="10px">
+        Powered by{" "}
+        <Link
+          href="https://huggingface.co/docs/huggingface.js/index"
+          target="_blank"
+        >
+          Huggingface.js
+        </Link>
+      </Text>
     </QueryControlContainer>
   );
 };
-
-const QueryTextarea = chakra(Textarea, {
-  baseStyle: {
-    w: "full",
-    border: "1px solid",
-    borderColor: "border",
-    rounded: "xl",
-  },
-});
 
 const QueryControlContainer = chakra(Flex, {
   baseStyle: {
@@ -67,12 +82,20 @@ const QueryControlContainer = chakra(Flex, {
     boxShadow: "base",
     rounded: "2xl",
     bg: "offsetBg",
-    bottom: "10px",
-    position: "fixed",
     w: "full",
     maxW: "4xl",
     flexDirection: "column",
     gap: "10px",
+  },
+});
+
+const QueryTextarea = chakra(Textarea, {
+  baseStyle: {
+    w: "full",
+    border: "1px solid",
+    borderColor: "border",
+    rounded: "xl",
+    maxH: "200px",
   },
 });
 
