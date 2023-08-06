@@ -5,3 +5,5 @@ export * from "./images";
 export * from "./containers";
 export * from "./page-error";
 export * from "./query-control";
+export * from "./query-history";
+export * from "./query-view";

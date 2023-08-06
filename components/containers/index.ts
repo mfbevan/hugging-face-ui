@@ -6,8 +6,6 @@ export const PageContainer = chakra(Flex, {
     flexDirection: "column",
     minH: "100vh",
     mx: "auto",
-    pt: "60px",
     px: "10px",
-    pb: "10px",
   },
 });
