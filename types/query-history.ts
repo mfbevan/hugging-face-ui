@@ -6,4 +6,5 @@ export interface QueryHistoryItem {
   response: string;
   model: LanguageModel | string;
   endpoint: InferenceEndpoint | string;
+  responseTime: number;
 }

@@ -13,15 +13,22 @@ export const useQueryControl = () => {
   const onSubmit = async () => {
     if (!query || !model || !endpoint) return;
 
+    const startTime = new Date().getTime();
+
+    // TODO execute HF Query
+
+    const endTime = new Date().getTime();
+
+    const responseTime = endTime - startTime;
+
     addToHistory({
       timestamp: new Date(),
       response: "This is a response.",
       query,
       model,
       endpoint,
+      responseTime,
     });
-
-    // TODO execute query action
 
     setQuery("");
   };

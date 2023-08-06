@@ -7,9 +7,12 @@ import {
   Flex,
   Spacer,
   Tag,
+  TagLabel,
+  TagLeftIcon,
   Text,
   chakra,
 } from "@chakra-ui/react";
+import { BsClockHistory } from "react-icons/bs";
 
 export const QueryHistory = () => {
   const { history } = useQueryControlStore();
@@ -34,12 +37,17 @@ export const HistoryItem = ({
   response,
   model,
   endpoint,
+  responseTime,
 }: QueryHistoryItem) => {
   return (
     <HistoryItemContainer>
       <TagContainer>
         <Tag>{model}</Tag>
         <Tag>{toTitleCase(endpoint)}</Tag>
+        <Tag>
+          <TagLeftIcon as={BsClockHistory} />
+          <TagLabel>{responseTime} ms</TagLabel>
+        </Tag>
         <Spacer />
         <HistoryTimestamp>
           {timestamp.toDateString()}
